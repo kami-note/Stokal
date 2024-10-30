@@ -11,15 +11,23 @@ import com.kryptforge.stokal.data.dao.LotDao
 import com.kryptforge.stokal.data.dao.LotTypeDao
 import com.kryptforge.stokal.data.dao.NotificationDao
 import com.kryptforge.stokal.data.entities.Action
+import com.kryptforge.stokal.data.entities.History
+import com.kryptforge.stokal.data.entities.Label
 import com.kryptforge.stokal.data.entities.Lot
+import com.kryptforge.stokal.data.entities.LotType
+import com.kryptforge.stokal.data.entities.Notification
 
-@Database(entities = [Action::class, HistoryDao::class, LabelDao::class,Lot::class, NotificationDao::class], version = 1)
+@Database(
+    entities = [Action::class, History::class, Label::class, Lot::class, LotType::class, Notification::class],
+    version = 1 ,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun actionDao(): ActionDao
     abstract fun historyDao(): HistoryDao
     abstract fun labelDao(): LabelDao
     abstract fun lotDao(): LotDao
-    abstract fun lotTypeDao() : LotTypeDao
+    abstract fun lotTypeDao(): LotTypeDao
     abstract fun notificationDao(): NotificationDao
 
     companion object {

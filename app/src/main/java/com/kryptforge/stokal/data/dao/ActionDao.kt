@@ -12,4 +12,7 @@ interface ActionDao {
 
     @Query("SELECT * FROM `action` WHERE id = :id")
     suspend fun getById(id: Int): Action?
+
+    @Query("SELECT * FROM `action`")
+    suspend fun getAllActions() : List<Action>?
 }

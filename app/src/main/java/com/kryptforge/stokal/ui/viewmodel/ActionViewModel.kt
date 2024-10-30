@@ -19,4 +19,8 @@ class ActionViewModel(application: Application) : AndroidViewModel(application) 
     suspend fun getActionById(id: Int): Action? {
         return actionDao.getById(id)
     }
+
+    suspend fun getAllActions(): List<Action>? {
+        return actionDao.getAllActions()
+    }
 }
