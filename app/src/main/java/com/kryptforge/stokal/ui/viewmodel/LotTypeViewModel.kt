@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.kryptforge.stokal.data.database.AppDatabase
+import com.kryptforge.stokal.data.entities.Lot
 import com.kryptforge.stokal.data.entities.LotType
 import kotlinx.coroutines.launch
 
@@ -14,6 +15,10 @@ class LotTypeViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             lotTypeDao.insert(lotType)
         }
+    }
+
+    suspend fun getAllLotType() : List<LotType> {
+        return lotTypeDao.getAllLotType()
     }
 
     suspend fun getLotTypeById(id: Int): LotType? {

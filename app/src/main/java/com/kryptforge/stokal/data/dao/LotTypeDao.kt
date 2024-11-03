@@ -10,6 +10,9 @@ interface LotTypeDao {
     @Insert
     suspend fun insert(lotType: LotType)
 
+    @Query("SELECT * FROM `lottype`")
+    suspend fun getAllLotType() : List<LotType>
+
     @Query("SELECT * FROM `lottype` WHERE id = :id")
     suspend fun getById(id: Int) : LotType?
 }

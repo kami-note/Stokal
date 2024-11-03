@@ -7,16 +7,22 @@ import com.kryptforge.stokal.data.database.AppDatabase
 import com.kryptforge.stokal.data.entities.Label
 import kotlinx.coroutines.launch
 
-class labelViewModel(application: Application) : AndroidViewModel(application) {
+class LabelViewModel(application: Application) : AndroidViewModel(application) {
     private val labelDao = AppDatabase.getDatabase(application).labelDao()
 
-    fun insert(label : Label) {
-        viewModelScope.launch {
-            labelDao.insert(label)
+    fun insert(label: Label) {
+        if (!label.name.isNullOrEmpty()){
+            viewModelScope.launch {
+                labelDao.insert(label)
+            }
         }
     }
 
-    suspend fun getLabelById(id: Int) : Label? {
+    suspend fun getAllLabels(): List<Label>? {
+        return labelDao.getAll()
+    }
+
+    suspend fun getLabelById(id: Int): Label? {
         return labelDao.getById(id)
     }
 }

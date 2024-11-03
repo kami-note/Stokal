@@ -8,8 +8,6 @@ data class Lot(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val itemCount: Int,
     val expirationDate: Long,
-    val lotType: String,
-    val status: String,
     val validationDate: Long?,
     val notes: String?,
     val estimatedValue: Double?,

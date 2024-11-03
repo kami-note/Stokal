@@ -18,8 +18,14 @@ import com.kryptforge.stokal.data.entities.LotType
 import com.kryptforge.stokal.data.entities.Notification
 
 @Database(
-    entities = [Action::class, History::class, Label::class, Lot::class, LotType::class, Notification::class],
-    version = 1 ,
+    entities = [
+        Action::class,
+        History::class,
+        Label::class,
+        Lot::class,
+        LotType::class,
+        Notification::class],
+    version = 2 ,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -40,7 +46,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration() // Remover quando for para produção
+                    .build()
                 INSTANCE = instance
                 instance
             }

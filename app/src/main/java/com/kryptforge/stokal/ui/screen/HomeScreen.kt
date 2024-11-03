@@ -22,16 +22,16 @@ import com.kryptforge.stokal.ui.viewmodel.ActionViewModel
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.LaunchedEffect
+import androidx.navigation.NavHostController
 
 @Composable
-fun HomeScreen(actionViewModel: ActionViewModel = viewModel()) {
+fun HomeScreen(actionViewModel: ActionViewModel = viewModel(), navController: NavHostController) {
     val coroutineScope = rememberCoroutineScope()
     var actionList by remember { mutableStateOf<List<Action>>(emptyList()) }
 
-    // Use LaunchedEffect to load actions when the screen is first composed
     LaunchedEffect(Unit) {
         actionList =
-            actionViewModel.getAllActions()!! // Método que você deve implementar no seu ViewModel
+            actionViewModel.getAllActions()!!
     }
 
     Column(
@@ -44,7 +44,7 @@ fun HomeScreen(actionViewModel: ActionViewModel = viewModel()) {
         Button(onClick = {
             coroutineScope.launch {
                 actionViewModel.insert(Action(name = "Test Action 2", description = "Sample", type = "Type A", createdAt = System.currentTimeMillis()))
-                actionList = actionViewModel.getAllActions()!! // Atualiza a lista após a inserção
+                actionList = actionViewModel.getAllActions()!!
             }
         }) {
             Text("Add and Get Action")
@@ -52,9 +52,20 @@ fun HomeScreen(actionViewModel: ActionViewModel = viewModel()) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Exibir todas as ações carregadas
         actionList.forEach { action ->
             Text("Action: ${action.name}, Description: ${action.description}")
+        }
+
+        Button(
+            onClick = { navController.navigate("labelscreen") }
+        ) {
+            Text("Label Screen")
+        }
+
+        Button(
+            onClick = { navController.navigate("lottypescreen") }
+        ) {
+            Text("LotType Screen")
         }
     }
 }
